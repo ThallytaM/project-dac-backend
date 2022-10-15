@@ -22,9 +22,6 @@ public class ConverterService {
 	private ClientService clientService;
 	
 	@Autowired
-	private ContractService contractService;
-	
-	@Autowired
 	private PropertyService propertyService;
 	
 	public List<ClientDTO> clientToDto(List<Client> clients){
@@ -130,9 +127,11 @@ public class ConverterService {
 		dto.setId(contract.getId());
 		dto.setContractDate(contract.getContractDate());	
 		if(contract.getClient() != null)
-			dto.setClientId(Integer.toString(contract.getClient().getId()));
+			dto.setClientId(String.valueOf(contract.getClient().getId().toString()));
+			//dto.setClientId(Integer.toString(contract.getClient().getId()));
 		if (contract.getProperty() != null)
-			dto.setPropertyId(Integer.toString(contract.getProperty().getId()));
+			dto.setPropertyId(String.valueOf(contract.getProperty().getId()));
+			//dto.setPropertyId(Integer.toString(contract.getProperty().getId()));
 		return dto;
 		
 	}

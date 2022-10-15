@@ -60,7 +60,7 @@ public class ContractController {
 		try {
 			dto.setId(id);
 			Contract entity = converterService.dtoToContract(dto);
-			entity = contractService.update(entity);
+			entity = contractService.update(id,entity);
 			dto = converterService.contractToDto(entity);
 			return ResponseEntity.ok(dto);
 			
@@ -84,24 +84,24 @@ public class ContractController {
 	public ResponseEntity find(
 			@RequestParam(value = "id", required = false)Integer id, 
 			@RequestParam(value = "clientId", required = false) Integer clientId,
-			@RequestParam(value = "property", required = false) Integer propertyId)
-			 
-			{
+			@RequestParam(value = "property", required = false) Integer propertyId){
 		
-		try {
-			Contract filter = new Contract();
-			filter.setId(id);
-			Optional<Client> client = clientService.findById(clientId);
-			if (client == null) {
-				throw new IllegalStateException();
-			}
-			filter.setClient(client.get());
-			
-			Property property = propertyService.findById(propertyId);
-			if (property == null) {
-				throw new IllegalStateException();
-			}
-			filter.setProperty(property);
+			try {
+				Contract filter = new Contract();
+				filter.setId(id);
+				
+				Optional<Client> client = clientService.findById(clientId);
+				if (client == null) {
+					throw new IllegalStateException("Cliente");
+				}
+				filter.setClient(client.get());
+				
+				Property property = propertyService.findById(propertyId);
+				if (property == null) {
+					throw new IllegalStateException("Propiedade");
+				}
+				
+				filter.setProperty(property);
 			
 					
 					

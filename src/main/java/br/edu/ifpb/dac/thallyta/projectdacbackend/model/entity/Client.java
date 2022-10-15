@@ -1,23 +1,18 @@
 package br.edu.ifpb.dac.thallyta.projectdacbackend.model.entity;
 
 
-import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
 @Entity
 @Table(name = "client")
-public class Client implements Serializable{
+public class Client{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,9 +20,6 @@ public class Client implements Serializable{
 	private String name;
 	private String cpf; 
 	private String telephone;
-	
-	//@OneToMany(mappedBy = "client", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	//private List<Contract> contracts;
 
 	
 	public Client() {

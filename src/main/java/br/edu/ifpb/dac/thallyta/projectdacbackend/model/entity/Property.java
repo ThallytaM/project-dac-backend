@@ -1,6 +1,5 @@
 package br.edu.ifpb.dac.thallyta.projectdacbackend.model.entity;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -12,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "property")
-public class Property implements Serializable{
+public class Property{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

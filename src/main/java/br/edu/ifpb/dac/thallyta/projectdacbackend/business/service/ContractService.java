@@ -23,13 +23,17 @@ public class ContractService {
 		return contractRepository.save(contract);
 	}
 	
-	public Contract update(Contract contract) {
-		return contractRepository.save(contract);
+	public Contract update(Integer id, Contract contract) {
+		Contract contractUp = findById(id);
+		contractUp.setClient(contract.getClient());
+		contractUp.setContractDate(contract.getContractDate());
+		contractUp.setProperty(contract.getProperty());
+		return contractRepository.save(contractUp);
 	}
 
 	public List<Contract> find(Contract filter){
 		
-		Example example = Example.of(filter,
+		Example<Contract> example = Example.of(filter,
 				ExampleMatcher.matching()
 				.withIgnoreCase()
 				.withStringMatcher(StringMatcher.CONTAINING));
@@ -39,6 +43,7 @@ public class ContractService {
 	}
 	
 	public void deleteId(Integer id) {
+		Contract contractUp = findById(id);
 		contractRepository.deleteById(id);
 		
 	}

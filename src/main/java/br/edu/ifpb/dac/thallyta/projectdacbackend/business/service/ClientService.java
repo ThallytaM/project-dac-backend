@@ -8,9 +8,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.ExampleMatcher.StringMatcher;
 import org.springframework.stereotype.Service;
-
 import br.edu.ifpb.dac.thallyta.projectdacbackend.model.entity.Client;
-import br.edu.ifpb.dac.thallyta.projectdacbackend.model.entity.Contract;
 import br.edu.ifpb.dac.thallyta.projectdacbackend.model.repository.ClientRepository;
 
 
@@ -24,24 +22,29 @@ public class ClientService {
 		return clientRepository.save(client);
 	}
 	
-	public Client update(Client client) {
+	public Client update(Integer id,Client client) {
+		Client clientUp = findById(id).get();
+		clientUp.setName(client.getName());
+		clientUp.setCpf(client.getCpf());
+		clientUp.setTelephone(client.getTelephone());
 		return clientRepository.save(client);
 	}
 	
 	public void deleteId(Integer id) {
+		Client clientUp = findById(id).get();
 		clientRepository.deleteById(id);	
 	}
 	
 	public Optional<Client> findById(Integer id) {
 		if(id == null)
-			throw new IllegalStateException("Null id client");
+			throw new IllegalStateException();
 		
 		return clientRepository.findById(id);
 	}
 	
 	public List<Client> find(Client filter){
 		
-		Example example = Example.of(filter,
+		Example<Client> example = Example.of(filter,
 				ExampleMatcher.matching()
 				.withIgnoreCase()
 				.withStringMatcher(StringMatcher.CONTAINING));

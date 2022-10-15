@@ -50,7 +50,7 @@ public class PropertyController {
 		try {
 			dto.setId(id);
 			Property entity = converterService.dtoToProperty(dto);
-			entity = propertyService.update(entity);
+			entity = propertyService.update(id,entity);
 			dto = converterService.propertyToDto(entity);
 			
 			return ResponseEntity.ok(dto);

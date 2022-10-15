@@ -53,7 +53,7 @@ public class ClientController {
 		try {
 			dto.setId(id);
 			Client entity = converterService.dtoToClient(dto);
-			entity = clientService.update(entity);
+			entity = clientService.update(id, entity);
 			dto = converterService.clientToDto(entity);
 			return ResponseEntity.ok(dto);
 			
