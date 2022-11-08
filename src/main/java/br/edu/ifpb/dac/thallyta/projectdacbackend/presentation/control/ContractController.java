@@ -82,39 +82,35 @@ public class ContractController {
 	
 	@GetMapping
 	public ResponseEntity find(
-			@RequestParam(value = "id", required = false)Integer id, 
-			@RequestParam(value = "clientId", required = false) Integer clientId,
-			@RequestParam(value = "property", required = false) Integer propertyId){
+			@RequestParam(value = "id", required = false) Integer id, 
+			@RequestParam(value = "contractDate", required = false) String contractDate,
+			@RequestParam(value = "clientId", required = false) String clientId,
+			@RequestParam(value = "propertyId", required = false) String propertyId)	
+	{
 		
 			try {
 				Contract filter = new Contract();
-				filter.setId(id);
-				
-				Optional<Client> client = clientService.findById(clientId);
+				filter.setId(id);	
+					
+				Optional<Client> client = clientService.findById(Integer.parseInt(clientId));
 				if (client == null) {
 					throw new IllegalStateException("Cliente");
-				}
-				filter.setClient(client.get());
-				
-				Property property = propertyService.findById(propertyId);
+				}else {
+					filter.setClient(client.get());
+
+				}				
+				Property property = propertyService.findById(Integer.parseInt(propertyId));
 				if (property == null) {
-					throw new IllegalStateException("Propiedade");
+					throw new IllegalStateException("Propriedade");
+				}else {
+					filter.setProperty(property);	
 				}
-				
-				filter.setProperty(property);
-			
 					
-					
-					
-		//	filter.setClient(clientService.findById(clientId).get());
-		//	filter.setProperty(propertyService.findById(propertyId));
-			
-			//filter.setClient(clientService.findById(Integer.parseInt(clientId)).get());
-		//	filter.setProperty(propertyService.findById(Integer.parseInt(propertyId)));
 			
 			
 			List<Contract> contracts = contractService.find(filter);
 			List<ContractDTO> dtos = converterService.contractToDto(contracts);
+			
 			
 			return ResponseEntity.ok(dtos);
 		} catch (Exception e) {

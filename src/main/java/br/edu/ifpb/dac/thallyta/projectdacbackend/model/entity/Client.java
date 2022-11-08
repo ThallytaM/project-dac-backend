@@ -20,15 +20,16 @@ public class Client{
 	private String name;
 	private String cpf; 
 	private String telephone;
-
+	private Integer age;
 	
 	public Client() {
 	}
 		
-	public Client(String name, String cpf, String telephone ) {
+	public Client(String name, String cpf, String telephone, Integer age) {
 		this.name = name;
 		this.cpf = cpf;
 		this.telephone = telephone;
+		this.age = age;
 	
 	}
 
@@ -63,7 +64,16 @@ public class Client{
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
-/*
+	
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	/*
 	public List<Contract> getContracts() {
 		return contracts;
 	}
@@ -79,7 +89,7 @@ public class Client{
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(cpf, id, name, telephone);
+		return Objects.hash(age, cpf, id, name, telephone);
 	}
 
 	@Override
@@ -91,9 +101,11 @@ public class Client{
 		if (getClass() != obj.getClass())
 			return false;
 		Client other = (Client) obj;
-		return Objects.equals(cpf, other.cpf) && Objects.equals(id, other.id) && Objects.equals(name, other.name)
-				&& Objects.equals(telephone, other.telephone);
+		return Objects.equals(age, other.age) && Objects.equals(cpf, other.cpf) && Objects.equals(id, other.id)
+				&& Objects.equals(name, other.name) && Objects.equals(telephone, other.telephone);
 	}
+
+	
 
 	
 	

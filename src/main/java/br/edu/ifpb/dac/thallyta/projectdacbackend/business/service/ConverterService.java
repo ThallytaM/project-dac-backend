@@ -41,6 +41,7 @@ public class ConverterService {
 		client.setName(dto.getName());
 		client.setCpf(dto.getCpf());
 		client.setTelephone(dto.getTelephone());
+		client.setAge(dto.getAge());
 		
 		return client;
 		
@@ -54,6 +55,7 @@ public class ConverterService {
 		dto.setName(client.getName());
 		dto.setCpf(client.getCpf());
 		dto.setTelephone(client.getTelephone());
+		dto.setAge(client.getAge());
 		
 		return dto;
 		
@@ -93,45 +95,53 @@ public class ConverterService {
 	}
 	
 	public List<ContractDTO> contractToDto(List<Contract> contracts){
+		
 		List<ContractDTO> contractDto = new ArrayList<>();
 		
 		for (Contract contract: contracts) {
-			ContractDTO dto = contractToDto(contract);
+			ContractDTO dto = this.contractToDto(contract);
 			contractDto.add(dto);
 		}
 		return contractDto;	
 	}
 	
+	
 	public Contract dtoToContract(ContractDTO dto) {
+
 		
 		Contract contract = new Contract();
 		
 		contract.setId(dto.getId());
 		contract.setContractDate(dto.getContractDate());
+		
 		if(dto.getClientId()!= null) {
-			Optional<Client> client = clientService.findById(Integer.parseInt(dto.getClientId()));
+			Optional<Client> client = clientService.findById(Integer.parseInt(dto.getClientId()));	
 			contract.setClient(client.get());
 		}
 		if(dto.getPropertyId() != null) {
 			Property property = propertyService.findById(Integer.parseInt(dto.getPropertyId()));
 			contract.setProperty(property);
 		}
+		
+		
 		return contract;
 		
 	}
 	
 	public ContractDTO contractToDto(Contract contract) {
 		
-		ContractDTO dto = new ContractDTO(contract);
+		ContractDTO dto = new ContractDTO();
 		
 		dto.setId(contract.getId());
 		dto.setContractDate(contract.getContractDate());	
+		
 		if(contract.getClient() != null)
-			dto.setClientId(String.valueOf(contract.getClient().getId().toString()));
-			//dto.setClientId(Integer.toString(contract.getClient().getId()));
+//		//	dto.setClientId(String.valueOf(contract.getClient().getId().toString()));
+			dto.setClientId(Integer.toString(contract.getClient().getId()));
+
 		if (contract.getProperty() != null)
-			dto.setPropertyId(String.valueOf(contract.getProperty().getId()));
-			//dto.setPropertyId(Integer.toString(contract.getProperty().getId()));
+//		//	dto.setPropertyId(String.valueOf(contract.getProperty().getId()));
+			dto.setPropertyId(Integer.toString(contract.getProperty().getId()));
 		return dto;
 		
 	}

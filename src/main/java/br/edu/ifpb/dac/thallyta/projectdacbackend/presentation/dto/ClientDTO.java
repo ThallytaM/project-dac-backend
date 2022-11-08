@@ -10,18 +10,19 @@ public class ClientDTO {
 	private Integer id;
 	private String name;
 	private String cpf;
-	private String telephone;	
+	private String telephone;
+	private Integer age;
 	
 	public ClientDTO() {
 		
-	}
-	
+	}	
 	
 	public ClientDTO(Client client) {
 		this.id = client.getId();
 		this.name = client.getName();
 		this.cpf = client.getCpf();
 		this.telephone = client.getTelephone();
+		this.age = client.getAge();
 	}
 
 
@@ -59,11 +60,20 @@ public class ClientDTO {
 		return telephone;
 	}
 
-
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
 	
+	public Integer getAge() {
+		return age;
+	}
+
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+
 	public static List<ClientDTO> toConvert(List<Client> clients){
 		return clients.stream().map(ClientDTO:: new).collect(Collectors.toList());
 	}

@@ -10,6 +10,7 @@ import org.springframework.data.domain.ExampleMatcher.StringMatcher;
 import org.springframework.stereotype.Service;
 import br.edu.ifpb.dac.thallyta.projectdacbackend.model.entity.Client;
 import br.edu.ifpb.dac.thallyta.projectdacbackend.model.repository.ClientRepository;
+import br.edu.ifpb.dac.thallyta.projectdacbackend.presentation.dto.ClientDTO;
 
 
 @Service

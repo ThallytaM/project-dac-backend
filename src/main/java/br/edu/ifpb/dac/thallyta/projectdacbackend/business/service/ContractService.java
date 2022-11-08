@@ -49,6 +49,8 @@ public class ContractService {
 	}
 	
 	public Contract findById(Integer id) {
+		if(id == null)
+			throw new IllegalStateException();
 		return contractRepository.findById(id).get();
 	}
 

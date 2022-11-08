@@ -3,6 +3,7 @@ package br.edu.ifpb.dac.thallyta.projectdacbackend.presentation.control;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.ifpb.dac.thallyta.projectdacbackend.business.service.ClientService;
 import br.edu.ifpb.dac.thallyta.projectdacbackend.business.service.ConverterService;
+import br.edu.ifpb.dac.thallyta.projectdacbackend.business.service.ValidationService;
 import br.edu.ifpb.dac.thallyta.projectdacbackend.model.entity.Client;
 import br.edu.ifpb.dac.thallyta.projectdacbackend.presentation.dto.ClientDTO;
 
@@ -31,13 +33,16 @@ public class ClientController {
 	private ClientService clientService;
 	
 	@Autowired
-	private ConverterService converterService;
+	private ConverterService converterService; 
 	
+	@Autowired
+	private ValidationService validationService;
 	
 	@PostMapping
 	public ResponseEntity save(@RequestBody ClientDTO dto) {
 		try {
 			Client entity = converterService.dtoToClient(dto);
+			validationService.validationAge(dto);
 			entity = clientService.save(entity);
 			dto = converterService.clientToDto(entity);
 			
@@ -52,6 +57,15 @@ public class ClientController {
 	public ResponseEntity update(@PathVariable("id")Integer id, @RequestBody ClientDTO  dto){	
 		try {
 			dto.setId(id);
+			
+			Integer clientId = dto.getId();
+			Optional<Client> c = clientService.findById(clientId);
+			
+			if(c==null) {
+				throw new IllegalStateException();
+			}
+			
+			
 			Client entity = converterService.dtoToClient(dto);
 			entity = clientService.update(id, entity);
 			dto = converterService.clientToDto(entity);
