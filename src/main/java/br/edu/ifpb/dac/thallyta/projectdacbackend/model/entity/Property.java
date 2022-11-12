@@ -29,7 +29,7 @@ public class Property{
 		this.area = area;
 		this.rentValue = rentValue;
 	}
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -46,7 +46,6 @@ public class Property{
 		this.address = address;
 	}
 
-
 	public BigDecimal getArea() {
 		return area;
 	}
@@ -62,7 +61,6 @@ public class Property{
 	public void setRentValue(BigDecimal rentValue) {
 		this.rentValue = rentValue;
 	}
-	
 
 	@Override
 	public int hashCode() {
@@ -81,12 +79,6 @@ public class Property{
 		return Objects.equals(address, other.address) && Objects.equals(area, other.area)
 				&& Objects.equals(id, other.id) && Objects.equals(rentValue, other.rentValue);
 	}
-
-	@Override
-	public String toString() {
-		return "\nID do Imóvel: " + id+
-				"\nAddress: " + address+
-				"\nÁrea em m²: " + area+
-				"\nRent Value: R$ " + rentValue;
-	}
+	
+	
 }

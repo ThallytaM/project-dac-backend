@@ -1,7 +1,5 @@
 package br.edu.ifpb.dac.thallyta.projectdacbackend.presentation.control;
 
-
-
 import java.util.List;
 import java.util.Optional;
 
@@ -18,68 +16,63 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.edu.ifpb.dac.thallyta.projectdacbackend.business.service.ClientService;
 import br.edu.ifpb.dac.thallyta.projectdacbackend.business.service.ConverterService;
-import br.edu.ifpb.dac.thallyta.projectdacbackend.business.service.ValidationService;
+import br.edu.ifpb.dac.thallyta.projectdacbackend.business.service.UserService;
 import br.edu.ifpb.dac.thallyta.projectdacbackend.model.entity.Client;
+import br.edu.ifpb.dac.thallyta.projectdacbackend.model.entity.User;
 import br.edu.ifpb.dac.thallyta.projectdacbackend.presentation.dto.ClientDTO;
-
+import br.edu.ifpb.dac.thallyta.projectdacbackend.presentation.dto.UserDTO;
 
 @RestController
-@RequestMapping("/api/client")
-public class ClientController {
+@RequestMapping("/api/user")
+public class UserController {
 	
 	@Autowired
-	private ClientService clientService;
+	private ConverterService converterService;
 	
 	@Autowired
-	private ConverterService converterService; 
-	
-	@Autowired
-	private ValidationService validationService;
+	private UserService userService;
 	
 	@PostMapping
-	public ResponseEntity save(@RequestBody ClientDTO dto) {
+	public ResponseEntity save(@RequestBody UserDTO dto) {
 		try {
-			Client entity = converterService.dtoToClient(dto);
-			validationService.validationAge(dto);
-			entity = clientService.save(entity);
-			dto = converterService.clientToDto(entity);
+			User entity = converterService.dtoToUser(dto);
+			entity = userService.save(entity);
+			dto = converterService.userToDto(entity);
 			
-			return new ResponseEntity(dto, HttpStatus.CREATED);
-			
+			return new ResponseEntity(dto,HttpStatus.CREATED);
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
-		}
+		}		
 	}
 	
 	@PutMapping("{id}")
-	public ResponseEntity update(@PathVariable("id")Integer id, @RequestBody ClientDTO  dto){	
+	public ResponseEntity update(@PathVariable("id")Integer id, @RequestBody UserDTO  dto){	
 		try {
 			dto.setId(id);
 			
-			Integer clientId = dto.getId();
-			Optional<Client> c = clientService.findById(clientId);
+			Integer userId = dto.getId();
+			Optional<User> user = userService.findById(userId);
 			
-			if(c==null) {
+			if(user==null) {
 				throw new IllegalStateException();
 			}
 			
-			Client entity = converterService.dtoToClient(dto);
-			entity = clientService.update(id, entity);
-			dto = converterService.clientToDto(entity);
+			User entity = converterService.dtoToUser(dto);
+			entity = userService.update(id, entity);
+			dto = converterService.userToDto(entity);
 			return ResponseEntity.ok(dto);
 			
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}	
-		
 	}
 	
+
 	@DeleteMapping("{id}")
 	public ResponseEntity deleteId(@PathVariable("id") Integer id) {
 		try {
-			clientService.deleteId(id);
+			userService.deleteId(id);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());		}		
@@ -88,22 +81,21 @@ public class ClientController {
 	@GetMapping
 	public ResponseEntity find(
 			@RequestParam(value = "id",required = false) Integer id,
-			@RequestParam(value = "name",required = false)String name,
-			@RequestParam(value = "cpf",required = false)String cpf) {
+			@RequestParam(value = "name",required = false)String name) 
+	{
 		
 		try {
-			Client filter = new Client();
+			User filter = new User();
 			filter.setId(id);
-			filter.setName(name);
-			filter.setCpf(cpf);
-		
+			filter.setName(name);		
 			
-			List<Client> clients = clientService.find(filter);
-			List<ClientDTO> dtos = converterService.clientToDto(clients);
+			List<User> users = userService.find(filter);
+			List<UserDTO> dtos = converterService.userToDto(users);
 			
 			return ResponseEntity.ok(dtos);
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());		}		
 		}		
 	
+
 }

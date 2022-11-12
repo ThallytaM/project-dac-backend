@@ -4,13 +4,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import br.edu.ifpb.dac.thallyta.projectdacbackend.model.entity.Client;
 import br.edu.ifpb.dac.thallyta.projectdacbackend.model.entity.Contract;
 
 
 public class ContractDTO {
 
 	private Integer id;
-	private Date contractDate = new Date();
+	private Date contractDate;
 	private String clientId;
 	private String propertyId;
 
@@ -57,6 +58,5 @@ public class ContractDTO {
 	public static List<ContractDTO> toConvert(List<Contract> contracts){
 		return contracts.stream().map(ContractDTO:: new).collect(Collectors.toList());
 	}
-	
 	
 }

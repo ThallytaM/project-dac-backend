@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 import br.edu.ifpb.dac.thallyta.projectdacbackend.model.entity.Client;
 import br.edu.ifpb.dac.thallyta.projectdacbackend.model.entity.Contract;
 import br.edu.ifpb.dac.thallyta.projectdacbackend.model.entity.Property;
+import br.edu.ifpb.dac.thallyta.projectdacbackend.model.entity.User;
 import br.edu.ifpb.dac.thallyta.projectdacbackend.presentation.dto.ClientDTO;
 import br.edu.ifpb.dac.thallyta.projectdacbackend.presentation.dto.ContractDTO;
 import br.edu.ifpb.dac.thallyta.projectdacbackend.presentation.dto.PropertyDTO;
+import br.edu.ifpb.dac.thallyta.projectdacbackend.presentation.dto.UserDTO;
 
 
 @Service
@@ -114,14 +116,16 @@ public class ConverterService {
 		contract.setId(dto.getId());
 		contract.setContractDate(dto.getContractDate());
 		
-		if(dto.getClientId()!= null) {
-			Optional<Client> client = clientService.findById(Integer.parseInt(dto.getClientId()));	
-			contract.setClient(client.get());
-		}
-		if(dto.getPropertyId() != null) {
-			Property property = propertyService.findById(Integer.parseInt(dto.getPropertyId()));
-			contract.setProperty(property);
-		}
+		contract.setClient(clientService.findById(Integer.parseInt(dto.getClientId())).get());
+		contract.setProperty(propertyService.findById(Integer.parseInt(dto.getPropertyId())));
+//		if(dto.getClientId()!= null) {
+//			Optional<Client> client = clientService.findById(Integer.parseInt(dto.getClientId()));	
+//			contract.setClient(client.get());
+//		}
+//		if(dto.getPropertyId() != null) {
+//			Property property = propertyService.findById(Integer.parseInt(dto.getPropertyId()));
+//			contract.setProperty(property);
+//		}
 		
 		
 		return contract;
@@ -135,18 +139,53 @@ public class ConverterService {
 		dto.setId(contract.getId());
 		dto.setContractDate(contract.getContractDate());	
 		
-		if(contract.getClient() != null)
-//		//	dto.setClientId(String.valueOf(contract.getClient().getId().toString()));
-			dto.setClientId(Integer.toString(contract.getClient().getId()));
+		dto.setClientId(Integer.toString(contract.getClient().getId()));
+		dto.setPropertyId(Integer.toString(contract.getProperty().getId()));
 
-		if (contract.getProperty() != null)
-//		//	dto.setPropertyId(String.valueOf(contract.getProperty().getId()));
-			dto.setPropertyId(Integer.toString(contract.getProperty().getId()));
+		
+//		if(contract.getClient() != null)
+//			dto.setClientId(Integer.toString(contract.getClient().getId()));
+//
+//		if (contract.getProperty() != null)
+//			dto.setPropertyId(Integer.toString(contract.getProperty().getId()));
 		return dto;
 		
 	}
 	
+	public User dtoToUser(UserDTO dto) {
+		User user = new User();
+		
+		user.setId(dto.getId());
+		user.setName(dto.getName());
+		user.setEmail(dto.getEmail());
+		user.setPassword(dto.getPassword());
+		
+		return user;
+		
+	}
 	
+	public UserDTO userToDto(User user) {
+		
+		UserDTO dto = new UserDTO(user);
+		
+		dto.setId(user.getId());
+		dto.setName(user.getName());
+		dto.setEmail(user.getEmail());
+		dto.setPassword(user.getPassword());
+		
+		return dto;
+		
+	}
+	
+	public List<UserDTO> userToDto(List<User> users){
+		List<UserDTO> userDto = new ArrayList<>();
+		
+		for (User user: users) {
+			UserDTO dto = userToDto(user);
+			userDto.add(dto);
+		}
+		return userDto;	
+	}
 
 	
 	

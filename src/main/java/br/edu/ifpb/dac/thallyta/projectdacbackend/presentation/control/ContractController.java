@@ -1,5 +1,6 @@
 package br.edu.ifpb.dac.thallyta.projectdacbackend.presentation.control;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -82,29 +83,30 @@ public class ContractController {
 	
 	@GetMapping
 	public ResponseEntity find(
-			@RequestParam(value = "id", required = false) Integer id, 
-			@RequestParam(value = "contractDate", required = false) String contractDate,
-			@RequestParam(value = "clientId", required = false) String clientId,
-			@RequestParam(value = "propertyId", required = false) String propertyId)	
+			@RequestParam(value = "id", required = false) Integer id,
+			@RequestParam(value = "contractDate", required = false) Date contractDate)
+//			@RequestParam(value = "clientId", required = false) String clientId,
+//			@RequestParam(value = "propertyId", required = false) String propertyId)	
 	{
 		
 			try {
 				Contract filter = new Contract();
 				filter.setId(id);	
+				filter.setContractDate(contractDate);
 					
-				Optional<Client> client = clientService.findById(Integer.parseInt(clientId));
-				if (client == null) {
-					throw new IllegalStateException("Cliente");
-				}else {
-					filter.setClient(client.get());
-
-				}				
-				Property property = propertyService.findById(Integer.parseInt(propertyId));
-				if (property == null) {
-					throw new IllegalStateException("Propriedade");
-				}else {
-					filter.setProperty(property);	
-				}
+//				Optional<Client> client = clientService.findById(Integer.parseInt(clientId));
+//				if (client == null) {
+//					throw new IllegalStateException("Cliente nulo");
+//				}else {
+//					filter.setClient(client.get());
+//
+//				}				
+//				Property property = propertyService.findById(Integer.parseInt(propertyId));
+//				if (property == null) {
+//					throw new IllegalStateException("Propriedade nula");
+//				}else {
+//					filter.setProperty(property);	
+//				}
 					
 			
 			

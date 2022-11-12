@@ -30,42 +30,49 @@ public class Contract {
 	
 	public Contract() {
 	}
+	
 	public Contract(Client client, Property property) {
 		this.client = client;
 		this.property = property;
 	}
-	
+
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public Date getContractDate() {
 		return contractDate;
 	}
+
 	public void setContractDate(Date contractDate) {
 		this.contractDate = contractDate;
+	}
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
 	}
 
 	public Property getProperty() {
 		return property;
 	}
-	public Client getClient() {
-		return client;
-	}
-	public void setClient(Client client) {
-		this.client = client;
-	}
+
 	public void setProperty(Property property) {
 		this.property = property;
 	}
-	
-	
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(client, id, property);
+		return Objects.hash(client, contractDate, id, property);
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -75,19 +82,8 @@ public class Contract {
 		if (getClass() != obj.getClass())
 			return false;
 		Contract other = (Contract) obj;
-		return Objects.equals(client, other.client)
+		return Objects.equals(client, other.client) && Objects.equals(contractDate, other.contractDate)
 				&& Objects.equals(id, other.id) && Objects.equals(property, other.property);
 	}
-	@Override
-	public String toString() {
-		return "\nID immobile: " + property.getId()+
-				"\nAddress: " + property.getAddress()+
-				"\nID Client: " + client.getId()+
-				"\nClient name: " + client.getName();
-		//		"\nContract date: " + this.getContractDate() + "\n";
-		
-	}
 	
-	
-
 }
