@@ -9,7 +9,8 @@ public class TokenDTO {
 	}
 	
 	public TokenDTO(String token2, UserDTO userDTO) {
-		// TODO Auto-generated constructor stub
+		this.token = token2;
+		this.user = userDTO;
 	}
 
 	public String getToken() {
