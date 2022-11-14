@@ -1,4 +1,4 @@
-package br.edu.ifpb.dac.thallyta.projectdacbackend.business.service;
+package br.edu.ifpb.dac.thallyta.projectdacbackend.business.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -159,6 +159,7 @@ public class ConverterService {
 		user.setName(dto.getName());
 		user.setEmail(dto.getEmail());
 		user.setPassword(dto.getPassword());
+		user.setUsername(dto.getUsername());
 		
 		return user;
 		
@@ -172,6 +173,7 @@ public class ConverterService {
 		dto.setName(user.getName());
 		dto.setEmail(user.getEmail());
 		dto.setPassword(user.getPassword());
+		dto.setUsername(user.getUsername());
 		
 		return dto;
 		

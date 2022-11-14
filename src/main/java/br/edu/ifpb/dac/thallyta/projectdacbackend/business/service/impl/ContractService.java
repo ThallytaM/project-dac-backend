@@ -1,4 +1,4 @@
-package br.edu.ifpb.dac.thallyta.projectdacbackend.business.service;
+package br.edu.ifpb.dac.thallyta.projectdacbackend.business.service.impl;
 
 
 import java.util.List;

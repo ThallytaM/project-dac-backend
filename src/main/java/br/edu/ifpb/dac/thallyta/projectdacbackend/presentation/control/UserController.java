@@ -16,8 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.edu.ifpb.dac.thallyta.projectdacbackend.business.service.ConverterService;
 import br.edu.ifpb.dac.thallyta.projectdacbackend.business.service.UserService;
+import br.edu.ifpb.dac.thallyta.projectdacbackend.business.service.impl.ConverterService;
+import br.edu.ifpb.dac.thallyta.projectdacbackend.business.service.impl.UserServiceImpl;
 import br.edu.ifpb.dac.thallyta.projectdacbackend.model.entity.Client;
 import br.edu.ifpb.dac.thallyta.projectdacbackend.model.entity.User;
 import br.edu.ifpb.dac.thallyta.projectdacbackend.presentation.dto.ClientDTO;
@@ -52,7 +53,7 @@ public class UserController {
 			dto.setId(id);
 			
 			Integer userId = dto.getId();
-			Optional<User> user = userService.findById(userId);
+			User user = userService.findById(userId);
 			
 			if(user==null) {
 				throw new IllegalStateException();
@@ -72,7 +73,7 @@ public class UserController {
 	@DeleteMapping("{id}")
 	public ResponseEntity deleteId(@PathVariable("id") Integer id) {
 		try {
-			userService.deleteId(id);
+			userService.delete(id);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());		}		

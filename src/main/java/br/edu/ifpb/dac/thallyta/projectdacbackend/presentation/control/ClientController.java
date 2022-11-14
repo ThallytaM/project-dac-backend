@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.edu.ifpb.dac.thallyta.projectdacbackend.business.service.ClientService;
-import br.edu.ifpb.dac.thallyta.projectdacbackend.business.service.ConverterService;
-import br.edu.ifpb.dac.thallyta.projectdacbackend.business.service.ValidationService;
+import br.edu.ifpb.dac.thallyta.projectdacbackend.business.service.impl.ClientService;
+import br.edu.ifpb.dac.thallyta.projectdacbackend.business.service.impl.ConverterService;
+import br.edu.ifpb.dac.thallyta.projectdacbackend.business.service.impl.ValidationService;
 import br.edu.ifpb.dac.thallyta.projectdacbackend.model.entity.Client;
 import br.edu.ifpb.dac.thallyta.projectdacbackend.presentation.dto.ClientDTO;
 
