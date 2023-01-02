@@ -91,12 +91,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST, "/api/login").permitAll()
 				.antMatchers(HttpMethod.POST, "/api/isTokenValid").permitAll()
 				.antMatchers(HttpMethod.POST, "/api/user").permitAll()
-				.antMatchers(HttpMethod.DELETE, "/api/user").hasRole(AvailableRoles.ADMIN.name())
+				.antMatchers(HttpMethod.DELETE, "/api/user")
+				
+				.hasRole(AvailableRoles.ADMIN.name())
 				.anyRequest().authenticated()	
-		.and()
-			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-		.and()
-			.addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+		.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+		.and().addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 		
 		http
 		.logout(
